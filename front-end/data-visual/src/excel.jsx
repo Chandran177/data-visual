@@ -2,17 +2,17 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const ExcelUploader = () => {
-  // State to hold the selected file and the data received from FastAPI
-  const [file, setFile] = useState(null);
-  const [data, setData] = useState(null);  // State to hold the data from FastAPI
-  const [error, setError] = useState(null); // State to hold any errors
 
-  // Handle file selection
+  const [file, setFile] = useState(null);
+  const [data, setData] = useState(null);  
+  const [error, setError] = useState(null);
+
+
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
 
-  // Handle file upload
+
   const handleUpload = async () => {
     if (!file) {
       alert("Please select a file first");
@@ -25,12 +25,12 @@ const ExcelUploader = () => {
     try {
       const response = await axios.post("http://127.0.0.1:8000/upload/", formData, {
         headers: {
-          "Content-Type": "multipart/form-data", // Ensure you're setting this header
+          "Content-Type": "multipart/form-data", 
         },
       });
   
-      setData(response.data); // Set the response data
-      setError(null); // Reset any errors
+      setData(response.data); 
+      setError(null); 
     } catch (error) {
       console.error("Error uploading file:", error);
       setError("Error uploading file. Please try again.");
@@ -42,13 +42,12 @@ const ExcelUploader = () => {
     <div>
       <h1>Upload Excel File</h1>
 
-      {/* File input */}
+      
       <input type="file" accept=".xlsx, .xls" onChange={handleFileChange} />
 
-      {/* Upload button */}
       <button onClick={handleUpload}>Upload</button>
 
-      {/* Display loading, errors or data */}
+      
       {error && <p style={{ color: "red" }}>{error}</p>}
       {data && (
         <div>
